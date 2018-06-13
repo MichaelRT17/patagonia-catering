@@ -3,4 +3,49 @@
     height: 60px;
     background-color: #75ADE0;
     overflow: hidden; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
 }
+
+.icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 125px;
+    color: #F6B506;
+}
+
+.hiddenavbar {
+    height: 1px;
+    width: 100vw;;
+    overflow: hidden;
+    transition: .5s;
+    padding: 0px;
+    position: absolute;
+    z-index: 4;
+  }
+
+  .navbar {
+    height: 250px;
+    width: 100vw;
+    background-color: #2B2B2D;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0px;
+    transition: .5s;
+    position: absolute;
+    z-index: 5;
+  }
+
+  .dropmenuhidden {
+    display: none;
+    transition: .5s;
+  }
+
+  .dropmenu {
+    color: black;
+    transition: .5s;
+  }
