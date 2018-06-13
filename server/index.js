@@ -13,6 +13,8 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.get('/api/getProducts', ctrl.getProducts);
+
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
     app.listen(SERVER_PORT, () => {
