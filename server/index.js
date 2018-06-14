@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express')
     , massive = require('massive')
-    // , bodyParser = require('body-parser')
+    , bodyParser = require('body-parser')
     , session = require('express-session')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
@@ -19,6 +19,7 @@ const {
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(session({
     secret: SESSION_SECRET,
     resave: false,

@@ -39,7 +39,7 @@ class Product extends Component {
                     <h4 className='info-text'>How many do you need?</h4>
                     <input type="number" min='1' placeholder='0' style={{ width: '30px', height: '15px', border:'solid 1px #555555', textAlign: 'center' }}
                         onChange={e => this.setState({ quantity: e.target.value })} />
-                    <Icon style={{color:'#555555'}}>
+                    <Icon style={{color:'#555555'}} onClick={() => this.handleAddToCart()}>
                         add_shopping_cart
                     </Icon>
                 </div>

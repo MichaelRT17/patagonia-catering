@@ -19,8 +19,8 @@ module.exports = {
 
     getCartItems: (req, res) => {
         const db = req.app.get('db');
-
-        db.get_cart_items([req.body.user_id])
+        console.log(req.user)
+        db.get_cart_items([req.user.user_id])
             .then((items) => res.status(200).send(items))
             .catch(() => res.status(500).send())
     },

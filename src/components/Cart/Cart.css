@@ -1,0 +1,39 @@
+.divide-boxes-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.divide-boxes-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px;
+    padding: 0;
+}
+
+.box-holder {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 350px;
+    margin: 10px auto;
+    color: #555555;
+    border: solid 1px #F6B506;
+    padding: 7px 0;
+}
+
+.text-desc {
+    padding: 0;
+    margin: 0;
+}
+
+.button-holder {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 200px;
+    
+}
