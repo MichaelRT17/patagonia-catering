@@ -7,5 +7,25 @@
 .info-box {
     display: flex;
     justify-content: space-around;
-    margin: -10px 40px -30px;
+    margin: -10px auto -30px;
+    width: 320px;
+    align-items: center;
+}
+
+.add-to-cart {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.info-text {
+    color:#555555
+}
+
+.info-border {
+    border: solid 1px #F6B506;
+    width: 350px;
+    margin: 10px auto;
 }

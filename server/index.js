@@ -71,7 +71,8 @@ app.get('/auth/user', (req, res) => {
         res.status(200).send(req.user)
     } 
 })
-
+app.post('/api/addToCart', ctrl.addToCart);
+app.get('/api/getCartItems', ctrl.getCartItems);
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
