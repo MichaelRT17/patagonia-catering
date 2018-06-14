@@ -1,0 +1,11 @@
+.food-desc {
+    text-align: justify;
+    text-justify: inter-word;
+    padding: 0 40px;
+}
+
+.info-box {
+    display: flex;
+    justify-content: space-around;
+    margin: -10px 40px -30px;
+}

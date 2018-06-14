@@ -26,3 +26,13 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Titillium Web', sans-serif;
+  font-style: Light;
+}

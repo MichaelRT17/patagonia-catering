@@ -7,14 +7,22 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
+    z-index: 6;
 }
 
 .icon-box {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 125px;
+    width: 117px;
     color: #F6B506;
+}
+
+.selector-box {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  width: 100px;
 }
 
 .hiddenavbar {
@@ -28,13 +36,13 @@
   }
 
   .navbar {
-    height: 250px;
+    height: 150px;
     width: 100vw;
     background-color: #2B2B2D;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 0px;
+    padding: 10px 0px;
     transition: .5s;
     position: absolute;
     z-index: 5;
@@ -42,10 +50,42 @@
 
   .dropmenuhidden {
     display: none;
-    transition: .5s;
+    transition: 2.5s;
   }
 
   .dropmenu {
-    color: black;
+    color: white;
+    transition: 2.5s;
+  }
+
+  .login-bar {
+    height: 75px;
+    width: 100vw;
+    background-color: #2B2B2D;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px 0px;
     transition: .5s;
+    position: absolute;
+    z-index: 5;
+    color: white;
+  }
+
+  .hidden-login-bar {
+    height: 1px;
+    width: 100vw;;
+    overflow: hidden;
+    transition: .5s;
+    padding: 0px;
+    position: absolute;
+    z-index: 4;
+  }
+
+  .hidden-account-icon {
+    display: none;
+  }
+
+  .account_icon {
+    border-radius: 50%;
   }
