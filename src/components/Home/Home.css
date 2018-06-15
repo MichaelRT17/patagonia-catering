@@ -1,0 +1,13 @@
+.selection-holder {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 10px;
+    height: 50px;
+    color: #555555;
+}
+
+.text-desc {
+    padding: 0;
+    margin: 0;
+}

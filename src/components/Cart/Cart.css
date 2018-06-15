@@ -37,3 +37,12 @@
     width: 200px;
     
 }
+
+.full-cart {
+    display: none;
+}
+
+.empty-cart {
+    color: #555555;
+}
+

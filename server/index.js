@@ -5,6 +5,8 @@ const express = require('express')
     , session = require('express-session')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
+    , nodemailer = require('nodemailer')
+    , exphbs = require('express-handlebars')
     , ctrl = require('./controller');
 
 const {
@@ -19,6 +21,8 @@ const {
 
 const app = express();
 
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
 app.use(session({
     secret: SESSION_SECRET,
@@ -74,6 +78,10 @@ app.get('/auth/user', (req, res) => {
 })
 app.post('/api/addToCart', ctrl.addToCart);
 app.get('/api/getCartItems', ctrl.getCartItems);
+app.get('/api/getMains', ctrl.getMains);
+app.get('/api/getSides', ctrl.getSides);
+app.get('/api/getDesserts', ctrl.getDesserts);
+app.put('/api/updateAmount', ctrl.updateAmount);
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
