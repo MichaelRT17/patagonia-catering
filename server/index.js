@@ -5,8 +5,9 @@ const express = require('express')
     , session = require('express-session')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
-    , nodemailer = require('nodemailer')
-    , exphbs = require('express-handlebars')
+    // , nodemailer = require('nodemailer')
+    // , exphbs = require('express-handlebars')
+    , stripe = require('stripe')(process.env.STRIPE_KEY)
     , ctrl = require('./controller');
 
 const {
@@ -21,8 +22,8 @@ const {
 
 const app = express();
 
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
+// app.engine('handlebars', exphbs());
+// app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
 app.use(session({
     secret: SESSION_SECRET,
