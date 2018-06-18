@@ -22,3 +22,15 @@ product_id INTEGER REFERENCES products(product_id),
 user_id INTEGER REFERENCES users(user_id),
 time TIMESTAMP
 );
+
+create table events (
+event_id serial primary key,
+user_id INTEGER REFERENCES users(user_id),
+address VARCHAR(80),
+city VARCHAR(40),
+state VARCHAR(2),
+zipcode INTEGER,
+date TEXT,
+start_time TEXT,
+end_time TEXT
+);

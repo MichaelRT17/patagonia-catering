@@ -81,7 +81,9 @@ app.get('/api/getCartItems', ctrl.getCartItems);
 app.get('/api/getMains', ctrl.getMains);
 app.get('/api/getSides', ctrl.getSides);
 app.get('/api/getDesserts', ctrl.getDesserts);
-app.put('/api/updateAmount', ctrl.updateAmount);
+app.post('/api/updateAmount', ctrl.updateAmount);
+app.delete('/api/removeProduct/:product_id', ctrl.removeProduct);
+app.delete('/api/checkout', ctrl.checkout);
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

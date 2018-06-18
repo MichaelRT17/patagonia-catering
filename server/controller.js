@@ -51,9 +51,27 @@ module.exports = {
 
     updateAmount: (req, res) => {
         const db = req.app.get('db');
-        const {user_id, product_id, amount} = req.body;
+        const { user_id, product_id, amount } = req.body;
 
-        db.update_amount()
+        db.update_amount([product_id, user_id, amount])
+            .then(() => res.status(200).send())
+            .catch(() => res.status(500).send());
+    },
+
+    removeProduct: (req, res) => {
+        const db = req.app.get('db');
+
+        db.remove_product([req.params.product_id, req.user.user_id])
+            .then(() => res.status(200).send())
+            .catch(() => res.status(500).send());
+    },
+
+    checkout: (req, res) => {
+        const db = req.app.get('db')
+
+        db.checkout([req.user.user_id])
+            .then(() => res.status(200).send())
+            .catch(() => res.status(500).send());
     }
 
 }
