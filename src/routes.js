@@ -4,6 +4,7 @@ import Home from './components/Home/Home';
 import Contact from './components/Contact/Contact';
 import Cart from './components/Cart/Cart';
 import About from './components/About/About';
+import EventCreator from './components/EventCreator/EventCreator';
 
 export default (
     <Switch >
@@ -11,5 +12,6 @@ export default (
         <Route path='/contact' component={Contact} />
         <Route path='/cart' component={Cart} />
         <Route path='/about' component={About} />
+        <Route path='/createEvent' component={EventCreator} />
     </Switch >
 )

@@ -72,6 +72,15 @@ module.exports = {
         db.checkout([req.user.user_id])
             .then(() => res.status(200).send())
             .catch(() => res.status(500).send());
+    },
+
+    createEvent: (req, res) => {
+        const db = req.app.get('db')
+        const {address, city, state, zipcode, date, startTime, endTime} = req.body;
+
+        db.create_event([req.user.user_id, address, city, state, zipcode, date, startTime, endTime])
+            .then(() => res.status(200).send())
+            .catch(() => res.status(500).send())
     }
 
 }

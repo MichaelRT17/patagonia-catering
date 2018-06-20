@@ -10,7 +10,7 @@ import store from './ducks/store';
 ReactDOM.render(
     <Provider store={store} >
         <HashRouter >
-            <App />
+                <App />
         </HashRouter >
     </Provider >
     , document.getElementById('root'));

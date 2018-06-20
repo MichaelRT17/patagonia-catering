@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Icon from '@material-ui/core/Icon';
-import Popup from 'reactjs-popup';
+import { getTotal } from '../../ducks/reducer';
+import { Link } from 'react-router-dom';
+
 import './Cart.css';
 
 class Cart extends Component {
@@ -13,15 +15,7 @@ class Cart extends Component {
             cartItems: [],
             newQuantity: 0,
             cartFull: false,
-            update: false,
-
-            address: '',
-            city: '',
-            state: '',
-            zipcode: '',
-            date: '',
-            startTime: '',
-            endTime: ''
+            update: false
         }
     }
 
@@ -57,7 +51,6 @@ class Cart extends Component {
             product_id: product_id,
             amount: newAmount
         }).then(() => {
-            // alert('Cart updated successfully!')
             this.setState({
                 update: !this.state.update
             })
@@ -75,11 +68,26 @@ class Cart extends Component {
 
     handleCheckOut() {
         axios.delete('/api/checkout')
-            .then(() => {
+            .then((res) => {
                 this.setState({
                     update: !this.state.update
                 })
+                res.redirect('/cart')
             })
+    }
+
+    handleCreateEvent() {
+        axios.post('/api/createEvent', {
+            address: this.state.address,
+            city: this.state.city,
+            state: this.state.state,
+            zipcode: this.state.zipcode,
+            date: this.state.date,
+            startTime: this.state.startTime,
+            endTime: this.state.endTime
+        }).then(() => {
+            this.handleCheckOut()
+        })
     }
 
     render() {
@@ -116,6 +124,7 @@ class Cart extends Component {
                 return false
             }
         })
+        this.props.getTotal(total)
         return (
             <div>
                 <h2 style={{ color: '#555555' }}>Your Cart:</h2>
@@ -124,131 +133,11 @@ class Cart extends Component {
                 <br />
                 <h4 className={this.state.cartFull ? 'full-cart' : 'empty-cart'}>Please login to see items added previously.</h4>
                 <h4 className={this.state.cartFull ? 'text-desc' : 'full-cart'}>Total: ${total}.00</h4>
-                <Popup
-                    trigger={
-                        <Icon style={{ color: '#F6B506', fontSize: 40 }} className={this.state.cartFull ? 'text-desc' : 'full-cart'}
-                            onClick={() => this.handleCheckOut()}>
-                            check_circle
+                <Link to='/createEvent' >
+                    <Icon style={{ color: '#F6B506', fontSize: 40 }} className={this.state.cartFull ? 'text-desc' : 'full-cart'}>
+                        check_circle
                         </Icon >
-                    }
-                    modal
-                >
-                    {close => (
-                        <span className='' >
-                            <h3 className='empty-cart' >Your Event Info:</h3>
-                            <h5 className='text-desc'>Address:</h5>
-                            <input type='' className='' style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
-                                onChange={e => this.setState({ address: e.target.value })} value={this.state.address} />
-                            <h5 className='text-desc'>City:</h5>
-                            <input type='' className='' style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
-                                onChange={e => this.setState({ city: e.target.value })} value={this.state.city} />
-                            <h5 className='text-desc'>State:</h5>
-                            <select style={{ width: '50px', height: '17px', border: 'solid 1px #555555', textAlign: 'center' }}
-                                onChange={e => this.setState({ state: e.target.value })} value={this.state.state}>
-                                <option value="AL">AL</option>
-                                <option value="AK">AK</option>
-                                <option value="AZ">AZ</option>
-                                <option value="AR">AR</option>
-                                <option value="CA">CA</option>
-                                <option value="CO">CO</option>
-                                <option value="CT">CT</option>
-                                <option value="DE">DE</option>
-                                <option value="DC">DC</option>
-                                <option value="FL">FL</option>
-                                <option value="GA">GA</option>
-                                <option value="HI">HI</option>
-                                <option value="ID">ID</option>
-                                <option value="IL">IL</option>
-                                <option value="IN">IN</option>
-                                <option value="IA">IA</option>
-                                <option value="KS">KS</option>
-                                <option value="KY">KY</option>
-                                <option value="LA">LA</option>
-                                <option value="ME">ME</option>
-                                <option value="MD">MD</option>
-                                <option value="MA">MA</option>
-                                <option value="MI">MI</option>
-                                <option value="MN">MN</option>
-                                <option value="MS">MS</option>
-                                <option value="MO">MO</option>
-                                <option value="MT">MT</option>
-                                <option value="NE">NE</option>
-                                <option value="NV">NV</option>
-                                <option value="NH">NH</option>
-                                <option value="NJ">NJ</option>
-                                <option value="NM">NM</option>
-                                <option value="NY">NY</option>
-                                <option value="NC">NC</option>
-                                <option value="ND">ND</option>
-                                <option value="OH">OH</option>
-                                <option value="OK">OK</option>
-                                <option value="OR">OR</option>
-                                <option value="PA">PA</option>
-                                <option value="RI">RI</option>
-                                <option value="SC">SC</option>
-                                <option value="SD">SD</option>
-                                <option value="TN">TN</option>
-                                <option value="TX">TX</option>
-                                <option value="UT">UT</option>
-                                <option value="VT">VT</option>
-                                <option value="VA">VA</option>
-                                <option value="WA">WA</option>
-                                <option value="WV">WV</option>
-                                <option value="WI">WI</option>
-                                <option value="WY">WY</option>
-                            </select>
-                            <h5 className='text-desc'>Zipcode:</h5>
-                            <input type='number' className='' style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
-                                onChange={e => this.setState({ zipcode: e.target.value })} value={this.state.zipcode} />
-                            <h5 className='text-desc'>Date of Event:</h5>
-                            <input type='date' className='' style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
-                                onChange={e => this.setState({ date: e.target.value })} value={this.state.date} />
-                            <h5 className='text-desc'>Start Time:</h5>
-                            <input type='time' className='' style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
-                                onChange={e => this.setState({ startTime: e.target.value })} value={this.state.startTime} />
-                            <h5 className='text-desc'>End Time:</h5>
-                            <input type='time' className='' style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
-                                onChange={e => this.setState({ endTime: e.target.value })} value={this.state.endTime} />
-                            <div className='button-holder' style={{ margin: '5px 0' }}>
-                                <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={close}>
-                                    clear
-                            </Icon >
-                                <Popup
-                                    trigger={
-                                        <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
-                                            done
-                                        </Icon >
-                                    }
-                                    position="top center"
-                                    closeOnDocumentClick
-                                >
-                                {close => (
-                                    <span>
-                                        <h4>Does this look correct?</h4>
-                                        <h6 style={{ margin: '0 0 5px 0' }}>Address: {this.state.address}</h6>
-                                        <h6 style={{ margin: '0 0 5px 0' }}>City: {this.state.city}</h6>
-                                        <h6 style={{ margin: '0 0 5px 0' }}>State: {this.state.state}</h6>
-                                        <h6 style={{ margin: '0 0 5px 0' }}>Zipcode: {this.state.zipcode}</h6>
-                                        <h6 style={{ margin: '0 0 5px 0' }}>Date: {this.state.date}</h6>
-                                        <h6 style={{ margin: '0 0 5px 0' }}>Start Time: {this.state.startTime}</h6>
-                                        <h6 style={{ margin: '0 0 5px 0' }}>End Time: {this.state.endTime}</h6>
-                                        <h5>Total: ${total}.00</h5>
-                                        <div className='button-holder' style={{ margin: '5px 0' }}>
-                                            <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={close}>
-                                                clear
-                                            </Icon >
-                                            {/* <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
-                                                done
-                                            </Icon > */}
-                                        </div>
-                                    </span>
-                                )}
-                                </Popup>
-
-                            </div>
-                        </span>
-                    )}
-                </Popup>
+                </Link >
                 <h3 className={this.state.cartFull ? 'text-desc' : 'full-cart'}>Create Event and Checkout</h3>
             </div>
         )
@@ -261,5 +150,5 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, { getTotal })(Cart);
 

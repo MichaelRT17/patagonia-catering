@@ -1,0 +1,16 @@
+.title {
+    color: #555555;
+}
+
+.text-desc {
+    padding: 0;
+    margin: 5px 0;
+    color: #555555;
+}
+
+.button-hold {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 200px;
+}
