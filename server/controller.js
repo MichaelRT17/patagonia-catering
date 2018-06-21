@@ -105,6 +105,14 @@ module.exports = {
         db.get_user_events([req.params.user_id])
             .then((events) => res.status(200).send(events))
             .catch(() => res.status(500).send());
+    },
+
+    getEvent: (req, res) => {
+        const db = req.app.get('db');
+
+        db.get_event([req.params.event_id])
+            .then((event) => res.status(200).send(event))
+            .catch(() => res.status(500).send());
     }
 
 }

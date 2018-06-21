@@ -59,7 +59,7 @@ passport.serializeUser((primaryKeyID, done) => {
     done(null, primaryKeyID);
 })
 passport.deserializeUser((primaryKeyID, done) => {
-    app.get('db').find_session_user([primaryKeyID]).then( user => {
+    app.get('db').find_session_user([primaryKeyID]).then(user => {
         done(null, user[0])
     })
 })
@@ -76,7 +76,7 @@ app.get('/api/getProducts', ctrl.getProducts);
 app.get('/auth/user', (req, res) => {
     if (req.user) {
         res.status(200).send(req.user)
-    } 
+    }
 })
 app.post('/api/addToCart', ctrl.addToCart);
 app.get('/api/getCartItems', ctrl.getCartItems);
@@ -88,8 +88,9 @@ app.delete('/api/removeProduct/:product_id', ctrl.removeProduct);
 app.delete('/api/removeFromCart', ctrl.removeFromCart);
 app.post('/api/createEvent', ctrl.createEvent);
 app.post('/api/addToEventCart', ctrl.addToEventCart);
-app.put('/api/linkToEvent/:id', ctrl.linkToEvent );
+app.put('/api/linkToEvent/:id', ctrl.linkToEvent);
 app.get('/api/getUserEvents/:user_id', ctrl.getUserEvents);
+app.get('/api/getEvent/:event_id', ctrl.getEvent);
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

@@ -1,0 +1,8 @@
+.event-display-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #555555;
+    border: solid 1px #F6B506;
+    margin: 5px;
+}

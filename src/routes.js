@@ -6,6 +6,7 @@ import Cart from './components/Cart/Cart';
 import About from './components/About/About';
 import EventCreator from './components/EventCreator/EventCreator';
 import YourEvents from './components/YourEvents/YourEvents';
+import Event from './components/Event/Event';
 
 export default (
     <Switch >
@@ -15,5 +16,6 @@ export default (
         <Route path='/about' component={About} />
         <Route path='/createEvent' component={EventCreator} />
         <Route path='/yourEvents/:user_id' component={YourEvents} />
+        <Route path='/event/:user_id/:event_id' component={Event} />
     </Switch >
 )
