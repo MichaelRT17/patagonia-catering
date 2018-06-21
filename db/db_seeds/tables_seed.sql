@@ -34,3 +34,11 @@ date TEXT,
 start_time TEXT,
 end_time TEXT
 );
+
+CREATE TABLE event_cart (
+event_cart_entry_id SERIAL PRIMARY KEY,
+product_id INTEGER REFERENCES products(product_id),
+user_id INTEGER REFERENCES users(user_id),
+amount INTEGER,
+event_id INTEGER REFERENCES events(event_id)
+);

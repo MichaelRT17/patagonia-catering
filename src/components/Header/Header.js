@@ -89,6 +89,10 @@ class Header extends Component {
                 </nav>
                 <nav className={this.state.loginmenu ? "login-bar" : "hidden-login-bar"}>
                     <h3>{this.props.user.user_name ? `Welcome, ${this.props.user.user_name}!` : 'Welcome, visitor!'}</h3>
+                    <Link to={`/yourEvents/${this.props.user.user_id}`} >
+                    <h3 className={this.props.user.user_id ? 'dropmenu' : 'dropmenuhidden'}
+                        onClick={() => this.homeIconClick()}>Your Events</h3>
+                    </Link >
                     <a href={this.props.user.user_id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN} >
                         <h4>{this.props.user.user_id ? 'Logout' : 'Login'}</h4>
                     </a>

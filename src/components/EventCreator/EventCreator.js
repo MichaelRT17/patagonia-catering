@@ -32,11 +32,15 @@ class EventCreator extends Component {
                     let x = items.findIndex(e => e.product_id === item.product_id)
                     x === -1 ? items.push(item) : items[x].amount += item.amount
                 })
+                this.setState({
+                    cartItems: items
+                })
             })
     }
 
     handleCreateEvent() {
         axios.post('/api/createEvent', {
+            eventName: this.state.eventName,
             address: this.state.address,
             city: this.state.city,
             state: this.state.state,
@@ -44,15 +48,39 @@ class EventCreator extends Component {
             date: this.state.date,
             startTime: this.state.startTime,
             endTime: this.state.endTime
-        }).then(() => {
-
+        }).then((res) => {
+            let event_id = res.data
+            axios.post(`/api/addToEventCart/`)
+                .then((res) => {
+                    console.log(res.data)
+                    res.data.forEach(id => {
+                        axios.put(`/api/linkToEvent/${id.event_cart_entry_id}`, {
+                            event_id: event_id
+                        }).then(() => {
+                            axios.delete('/api/removeFromCart')
+                        })
+                    })
+                })
         })
     }
 
     render() {
+        let total = 0;
         console.log(this.state)
+        let mappedItems = this.state.cartItems.map((item, i) => {
+            total += item.amount * item.product_price;
+            return (
+                <div key={i} className='button-hold outline'>
+                    <h6 className='text-desc-product'>{item.product_name}</h6>
+                    <div className='product-box'>
+                        <h6 className='text-desc-product'>{item.amount} x ${item.product_price}</h6>
+                        <h6 className='text-desc-product'>= ${item.amount * item.product_price}.00</h6>
+                    </div>
+                </div>
+            )
+        })
         return (
-            <div>
+            <div className='App'>
                 <span >
                     <h2 className='title' >Your Event Info:</h2>
                     <h5 className='text-desc'>Event Name:</h5>
@@ -159,14 +187,19 @@ class EventCreator extends Component {
                                 <h6 style={{ margin: '0 0 5px 0' }}>Date: {this.state.date}</h6>
                                 <h6 style={{ margin: '0 0 5px 0' }}>Start Time: {this.state.startTime}</h6>
                                 <h6 style={{ margin: '0 0 5px 0' }}>End Time: {this.state.endTime}</h6>
-                                <h5>Total: ${this.props.total}.00</h5>
+                                <br />
+                                {mappedItems}
+                                <h5>Total: ${total}.00</h5>
                                 <div className='button-holder' style={{ margin: '5px 0' }}>
                                     <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={close}>
                                         clear
                                             </Icon >
-                                    <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
-                                        done
+                                    <Link to={`/yourEvents/${this.props.user.user_id}`} >
+                                        <Icon style={{ fontSize: '40px', color: '#F6B506' }}
+                                            onClick={() => this.handleCreateEvent()}>
+                                            done
                                             </Icon >
+                                    </Link>
                                 </div>
                             </span>
                         )}
@@ -179,7 +212,8 @@ class EventCreator extends Component {
 
 function mapStateToProps(state) {
     return {
-        total: state.total
+        total: state.total,
+        user: state.user
     }
 }
 

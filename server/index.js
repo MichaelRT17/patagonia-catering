@@ -85,11 +85,11 @@ app.get('/api/getSides', ctrl.getSides);
 app.get('/api/getDesserts', ctrl.getDesserts);
 app.post('/api/updateAmount', ctrl.updateAmount);
 app.delete('/api/removeProduct/:product_id', ctrl.removeProduct);
-app.delete('/api/checkout', ctrl.checkout);
-app.post('/save-stripe-token', (req, res) => {
-    res.status(200).send();
-})
+app.delete('/api/removeFromCart', ctrl.removeFromCart);
 app.post('/api/createEvent', ctrl.createEvent);
+app.post('/api/addToEventCart', ctrl.addToEventCart);
+app.put('/api/linkToEvent/:id', ctrl.linkToEvent );
+app.get('/api/getUserEvents/:user_id', ctrl.getUserEvents);
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

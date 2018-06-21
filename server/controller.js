@@ -66,21 +66,45 @@ module.exports = {
             .catch(() => res.status(500).send());
     },
 
-    checkout: (req, res) => {
+    removeFromCart: (req, res) => {
         const db = req.app.get('db')
 
-        db.checkout([req.user.user_id])
+        db.remove_from_cart([req.user.user_id])
             .then(() => res.status(200).send())
             .catch(() => res.status(500).send());
     },
 
     createEvent: (req, res) => {
         const db = req.app.get('db')
-        const {address, city, state, zipcode, date, startTime, endTime} = req.body;
+        const { address, city, state, zipcode, date, startTime, endTime, eventName } = req.body;
 
-        db.create_event([req.user.user_id, address, city, state, zipcode, date, startTime, endTime])
-            .then(() => res.status(200).send())
+        db.create_event([req.user.user_id, address, city, state, zipcode, date, startTime, endTime, eventName])
+            .then((event_id) => res.status(200).send(event_id))
             .catch(() => res.status(500).send())
+    },
+
+    addToEventCart: (req, res) => {
+        const db = req.app.get('db');
+
+        db.add_to_event_cart([req.user.user_id])
+            .then((event_cart_entry_id) => res.status(200).send(event_cart_entry_id))
+            .catch(() => res.status(500).send());
+    },
+
+    linkToEvent: (req, res) => {
+        const db = req.app.get('db');
+
+        db.link_to_event([req.params.id, req.body.event_id[0].event_id])
+            .then(() => res.status(200).send())
+            .catch(() => res.status(500).send());
+    },
+
+    getUserEvents: (req, res) => {
+        const db = req.app.get('db');
+
+        db.get_user_events([req.params.user_id])
+            .then((events) => res.status(200).send(events))
+            .catch(() => res.status(500).send());
     }
 
 }

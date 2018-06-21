@@ -76,20 +76,6 @@ class Cart extends Component {
             })
     }
 
-    handleCreateEvent() {
-        axios.post('/api/createEvent', {
-            address: this.state.address,
-            city: this.state.city,
-            state: this.state.state,
-            zipcode: this.state.zipcode,
-            date: this.state.date,
-            startTime: this.state.startTime,
-            endTime: this.state.endTime
-        }).then(() => {
-            this.handleCheckOut()
-        })
-    }
-
     render() {
         console.log(this.state)
         let total = 0;
