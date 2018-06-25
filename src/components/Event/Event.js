@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Icon from '@material-ui/core/Icon';
+import StripeCheckout from 'react-stripe-checkout';
 import './Event.css';
 
 export default class Event extends Component {
@@ -9,7 +10,8 @@ export default class Event extends Component {
 
         this.state = {
             event: [],
-            items: []
+            items: [],
+            paid: false
         }
     }
 
@@ -20,6 +22,23 @@ export default class Event extends Component {
                     event: res.data[0],
                     items: res.data
                 })
+                if(this.state.event.paid === 'PAID') {
+                    this.setState({
+                        paid: true
+                    })
+                }
+            })
+    }
+
+    onPurchaseConfirmation() {
+        axios.put('/api/updatePaid/' + this.props.match.params.event_id)
+    }
+
+    onToken = (token) => {
+        token.card = void 0;
+        axios.post('/api/payment', { token, amount: 100 })
+            .then(res => {
+                this.onPurchaseConfirmation();
             })
     }
 
@@ -40,7 +59,7 @@ export default class Event extends Component {
             )
         })
         return (
-            <div>
+            <div className='text-color'>
                 <h1>{this.state.event.event_name}</h1>
                 <h4 style={{ margin: '0 0 5px 0' }}>Address: {this.state.event.address}</h4>
                 <h4 style={{ margin: '0 0 5px 0' }}>City: {this.state.event.city}</h4>
@@ -51,12 +70,20 @@ export default class Event extends Component {
                 <h4 style={{ margin: '0 0 5px 0' }}>End Time: {this.state.event.end_time}</h4>
                 <br />
                 {mappedItems}
-                <h5>Total: ${total}.00</h5>
+                <h5 className='total-display'>Total: ${total}.00</h5>
                 <br />
-                <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
-                    shopping_basket
+                <div className={this.state.paid ? 'hide-button' : 'show-button'}>
+                    <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
+                        shopping_basket
                     </Icon >
-                <h3>Checkout</h3>
+                    <br />
+                    <StripeCheckout
+                        token={this.onToken}
+                        stripeKey={'pk_test_qbmPhdNVmiUmOFLzGKXm58NP'}
+                        amount={total * 100}
+                    />
+                </div>
+                <h4 className={this.state.paid ? 'show-button' : 'hide-button'}>EVENT PAID IN FULL</h4>
             </div>
         )
     }

@@ -76,9 +76,9 @@ module.exports = {
 
     createEvent: (req, res) => {
         const db = req.app.get('db')
-        const { address, city, state, zipcode, date, startTime, endTime, eventName } = req.body;
+        const { address, city, state, zipcode, date, startTime, endTime, eventName, paid } = req.body;
 
-        db.create_event([req.user.user_id, address, city, state, zipcode, date, startTime, endTime, eventName])
+        db.create_event([req.user.user_id, address, city, state, zipcode, date, startTime, endTime, eventName, paid])
             .then((event_id) => res.status(200).send(event_id))
             .catch(() => res.status(500).send())
     },
@@ -113,6 +113,24 @@ module.exports = {
         db.get_event([req.params.event_id])
             .then((event) => res.status(200).send(event))
             .catch(() => res.status(500).send());
+    },
+
+    updatePaid: (req, res) => {
+        const db = req.app.get('db');
+
+        db.update_paid([req.params.event_id])
+            .then(() => res.status(200).send())
+            .catch(() => res.status(500).send());
+    },
+
+    deleteEvent: (req, res) => {
+        const db = req.app.get('db');
+
+        db.delete_event([+req.params.event_id])
+            .then(() => res.status(200).send())
+            .catch((err) => {
+                console.log(err)
+                res.status(500).send()});
     }
 
 }

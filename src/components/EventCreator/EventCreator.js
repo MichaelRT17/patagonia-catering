@@ -47,7 +47,8 @@ class EventCreator extends Component {
             zipcode: this.state.zipcode,
             date: this.state.date,
             startTime: this.state.startTime,
-            endTime: this.state.endTime
+            endTime: this.state.endTime,
+            paid: false
         }).then((res) => {
             let event_id = res.data
             axios.post(`/api/addToEventCart/`)

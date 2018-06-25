@@ -7,7 +7,7 @@ const express = require('express')
     , Auth0Strategy = require('passport-auth0')
     // , nodemailer = require('nodemailer')
     // , exphbs = require('express-handlebars')
-    , stripe = require('stripe')(process.env.STRIPE_KEY)
+    , stripe = require('stripe')(process.env.REACT_APP_STRIPE_KEY)
     , hbs = require('hbs')
     , ctrl = require('./controller');
 
@@ -91,6 +91,45 @@ app.post('/api/addToEventCart', ctrl.addToEventCart);
 app.put('/api/linkToEvent/:id', ctrl.linkToEvent);
 app.get('/api/getUserEvents/:user_id', ctrl.getUserEvents);
 app.get('/api/getEvent/:event_id', ctrl.getEvent);
+app.post('/api/payment', (req, res) => {
+    const amountArray = req.body.amount.toString().split('');
+    const pennies = [];
+    for (var i = 0; i < amountArray.length; i++) {
+      if(amountArray[i] === ".") {
+        if (typeof amountArray[i + 1] === "string") {
+          pennies.push(amountArray[i + 1]);
+        } else {
+          pennies.push("0");
+        }
+        if (typeof amountArray[i + 2] === "string") {
+          pennies.push(amountArray[i + 2]);
+        } else {
+          pennies.push("0");
+        }
+          break;
+      } else {
+          pennies.push(amountArray[i])
+      }
+    }
+    const convertedAmt = parseInt(pennies.join(''));
+
+    const charge = stripe.charges.create({
+        amount: convertedAmt,
+        currency: 'usd',
+        source: req.body.token.id,
+        description: 'Test charge from react app'
+    }, function (err, charge) {
+        if (err) {
+            console.log(err)
+            return res.status(500).send();
+        }
+        else {
+            return res.status(200).send();
+        }
+    });
+});
+app.put('/api/updatePaid/:event_id', ctrl.updatePaid);
+app.delete('/api/deleteEvent/:event_id', ctrl.deleteEvent);
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

@@ -24,3 +24,19 @@
     margin: 0;
     color: #555555;
 }
+
+.text-color {
+    color: #555555
+}
+
+.hide-button {
+    display: none;
+}
+
+.show-button {
+    display: inherit
+}
+
+.total-display {
+    margin: 5px;
+}
