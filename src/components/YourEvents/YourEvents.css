@@ -4,7 +4,8 @@
     align-items: center;
     color: #555555;
     border: solid 1px #F6B506;
-    margin: 5px;
+    margin: 10px auto;
+    width: 350px
 }
 
 .text-color {

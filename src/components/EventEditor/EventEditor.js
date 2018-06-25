@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Icon from '@material-ui/core/Icon';
+import { Link } from 'react-router-dom';
 import './EventEditor.css';
 
 export default class EventEditor extends Component {
@@ -77,14 +78,14 @@ export default class EventEditor extends Component {
             <div>
                 <div className='text-color'>
                     <h3 style={{ margin: '15px 0 5px 0' }}>Event Name: </h3>
-                    <input type='' className='' onChange={e => this.setState({ eventName: e.target.value })} value={this.state.eventName} 
-                        style={{ width: '100px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }}/>
+                    <input type='' className='' onChange={e => this.setState({ eventName: e.target.value })} value={this.state.eventName}
+                        style={{ width: '100px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }} />
                     <h4 style={{ margin: '5px 0 5px 0' }}>Address: </h4>
-                    <input type='' className='' onChange={e => this.setState({ address: e.target.value })} value={this.state.address} 
-                        style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }}/>
+                    <input type='' className='' onChange={e => this.setState({ address: e.target.value })} value={this.state.address}
+                        style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }} />
                     <h4 style={{ margin: '5px 0 5px 0' }}>City: </h4>
-                    <input type='' className='' onChange={e => this.setState({ city: e.target.value })} value={this.state.city} 
-                        style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }}/>
+                    <input type='' className='' onChange={e => this.setState({ city: e.target.value })} value={this.state.city}
+                        style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }} />
                     <h4 style={{ margin: '5px 0 5px 0' }}>State: </h4>
                     <select style={{ width: '50px', height: '17px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555', backgroundColor: 'white' }}
                         onChange={e => this.setState({ state: e.target.value })} value={this.state.state}>
@@ -141,17 +142,17 @@ export default class EventEditor extends Component {
                         <option value="WY">WY</option>
                     </select>
                     <h4 style={{ margin: '5px 0 5px 0' }}>Zipcode: </h4>
-                    <input type='' className='' onChange={e => this.setState({ zipcode: e.target.value })} value={this.state.zipcode} 
-                        style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }}/>
+                    <input type='' className='' onChange={e => this.setState({ zipcode: e.target.value })} value={this.state.zipcode}
+                        style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }} />
                     <h4 style={{ margin: '5px 0 5px 0' }}>Date: </h4>
-                    <input type='date' className='' onChange={e => this.setState({ date: e.target.value })} value={this.state.date} 
-                        style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }}/>
+                    <input type='date' className='' onChange={e => this.setState({ date: e.target.value })} value={this.state.date}
+                        style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }} />
                     <h4 style={{ margin: '5px 0 5px 0' }}>Start Time: </h4>
-                    <input type='time' className='' onChange={e => this.setState({ startTime: e.target.value })} value={this.state.startTime} 
-                        style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }}/>
+                    <input type='time' className='' onChange={e => this.setState({ startTime: e.target.value })} value={this.state.startTime}
+                        style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }} />
                     <h4 style={{ margin: '5px 0 5px 0' }}>End Time: </h4>
-                    <input type='time' className='' onChange={e => this.setState({ endTime: e.target.value })} value={this.state.endTime} 
-                        style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }}/>
+                    <input type='time' className='' onChange={e => this.setState({ endTime: e.target.value })} value={this.state.endTime}
+                        style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }} />
                     <br />
                     <br />
                     {mappedItems}
@@ -159,12 +160,16 @@ export default class EventEditor extends Component {
                     <br />
                     <h4 className={this.state.paidDisplay ? 'show-button' : 'hide-button'}>EVENT PAID IN FULL</h4>
                     <div className='button-holder' style={{ margin: '5px 0' }}>
-                    <Icon style={{ fontSize: '40px', color: '#F6B506' }} >
-                        clear
+                        <Link to={`/yourEvents/${this.props.match.params.user_id}`}>
+                            <Icon style={{ fontSize: '40px', color: '#F6B506' }} >
+                                clear
                     </Icon >
-                    <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
-                        done
+                        </Link >
+                        <Link to={`/event/${this.props.match.params.user_id}/${this.props.match.params.event_id}`} >
+                            <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={() => this.updateEvent()}>
+                                done
                     </Icon >
+                        </Link >
                     </div>
                 </div>
             </div>

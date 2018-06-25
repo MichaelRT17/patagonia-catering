@@ -2,12 +2,13 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 0 10px;
+    margin: 0px;
     height: 50px;
     color: #555555;
 }
 
-.text-desc {
+.text-descrip {
     padding: 0;
-    margin: 0;
+    margin: -5px 0 5px;
 }
+

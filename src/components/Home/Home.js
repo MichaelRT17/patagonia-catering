@@ -72,7 +72,7 @@ export default class Home extends Component {
                             name="radio-button-demo"
                             aria-label="A"
                         />
-                        <h5 className='text-desc'>Show All</h5>
+                        <h5 className='text-descrip'>Show All</h5>
                     </div>
                     <div>
                         <Radio
@@ -83,7 +83,7 @@ export default class Home extends Component {
                             name="radio-button-demo"
                             aria-label="B"
                         />
-                        <h5 className='text-desc'>Mains</h5>
+                        <h5 className='text-descrip'>Mains</h5>
                     </div>
                     <div>
                         <Radio
@@ -94,7 +94,7 @@ export default class Home extends Component {
                             name="radio-button-demo"
                             aria-label="C"
                         />
-                        <h5 className='text-desc'>Sides</h5>
+                        <h5 className='text-descrip'>Sides</h5>
                     </div>
                     <div>
                         <Radio
@@ -105,7 +105,7 @@ export default class Home extends Component {
                             name="radio-button-demo"
                             aria-label="D"
                         />
-                        <h5 className='text-desc'>Desserts</h5>
+                        <h5 className='text-descrip'>Desserts</h5>
                     </div>
                 </div>
                 {mappedProducts}

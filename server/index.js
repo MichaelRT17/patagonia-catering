@@ -5,10 +5,8 @@ const express = require('express')
     , session = require('express-session')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
-    // , nodemailer = require('nodemailer')
-    // , exphbs = require('express-handlebars')
+    , nodemailer = require('nodemailer')
     , stripe = require('stripe')(process.env.REACT_APP_STRIPE_KEY)
-    , hbs = require('hbs')
     , ctrl = require('./controller');
 
 const {
@@ -23,8 +21,6 @@ const {
 
 const app = express();
 
-// app.engine('handlebars', exphbs());
-// app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
 app.use(session({
     secret: SESSION_SECRET,
@@ -40,7 +36,6 @@ passport.use(new Auth0Strategy({
     callbackURL: CALLBACK_URL,
     scope: 'openid profile email'
 }, (accessToken, refreshToken, extraParams, profile, done) => {
-    // console.log(profile)
     const db = app.get('db')
     let { id, displayName, picture } = profile;
     let { email } = profile._json
@@ -131,6 +126,37 @@ app.post('/api/payment', (req, res) => {
 app.put('/api/updatePaid/:event_id', ctrl.updatePaid);
 app.delete('/api/deleteEvent/:event_id', ctrl.deleteEvent);
 app.put('/api/updateEvent/:event_id', ctrl.updateEvent);
+
+//nodemailer
+
+app.post('/api/sendMail', (req, res) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD
+        }
+    });
+    
+    var mailOptions = {
+        from: process.env.EMAIL,
+        to: 'MichaelRT17@icloud.com',
+        subject: req.body.subject,
+        text: req.body.message + '- from ' + req.body.name + ' ' + req.body.email
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+})
+
+
+
+
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

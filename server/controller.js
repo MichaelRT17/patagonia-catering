@@ -130,13 +130,17 @@ module.exports = {
             .then(() => res.status(200).send())
             .catch((err) => {
                 console.log(err)
-                res.status(500).send()});
+                res.status(500).send()
+            });
     },
 
     updateEvent: (req, res) => {
         const db = req.app.get('db');
+        const { eventName, address, city, state, zipcode, date, startTime, endTime } = req.body;
 
-        
+        db.update_event([address, city, state, zipcode, date, startTime, endTime, eventName, req.params.event_id])
+            .then(() => res.status(200).send())
+            .catch(() => res.status(500).send());
     }
 
 }
