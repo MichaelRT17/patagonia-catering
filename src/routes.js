@@ -7,6 +7,7 @@ import About from './components/About/About';
 import EventCreator from './components/EventCreator/EventCreator';
 import YourEvents from './components/YourEvents/YourEvents';
 import Event from './components/Event/Event';
+import EventEditor from './components/EventEditor/EventEditor';
 
 export default (
     <Switch >
@@ -17,5 +18,6 @@ export default (
         <Route path='/createEvent' component={EventCreator} />
         <Route path='/yourEvents/:user_id' component={YourEvents} />
         <Route path='/event/:user_id/:event_id' component={Event} />
+        <Route path='/eventEditor/:user_id/:event_id' component={EventEditor} />
     </Switch >
 )

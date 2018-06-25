@@ -131,6 +131,12 @@ module.exports = {
             .catch((err) => {
                 console.log(err)
                 res.status(500).send()});
+    },
+
+    updateEvent: (req, res) => {
+        const db = req.app.get('db');
+
+        
     }
 
 }

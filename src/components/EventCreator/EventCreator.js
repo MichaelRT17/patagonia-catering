@@ -85,16 +85,16 @@ class EventCreator extends Component {
                 <span >
                     <h2 className='title' >Your Event Info:</h2>
                     <h5 className='text-desc'>Event Name:</h5>
-                    <input type='' className='' style={{ width: '100px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
+                    <input type='' className='' style={{ width: '100px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }}
                         onChange={e => this.setState({ eventName: e.target.value })} value={this.state.eventName} />
                     <h5 className='text-desc'>Address:</h5>
-                    <input type='' className='' style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
+                    <input type='' className='' style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }}
                         onChange={e => this.setState({ address: e.target.value })} value={this.state.address} />
                     <h5 className='text-desc'>City:</h5>
-                    <input type='' className='' style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
+                    <input type='' className='' style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555'}}
                         onChange={e => this.setState({ city: e.target.value })} value={this.state.city} />
                     <h5 className='text-desc'>State:</h5>
-                    <select style={{ width: '50px', height: '17px', border: 'solid 1px #555555', textAlign: 'center' }}
+                    <select style={{ width: '50px', height: '17px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }}
                         onChange={e => this.setState({ state: e.target.value })} value={this.state.state}>
                         <option value="AL">AL</option>
                         <option value="AK">AK</option>
@@ -149,16 +149,16 @@ class EventCreator extends Component {
                         <option value="WY">WY</option>
                     </select>
                     <h5 className='text-desc'>Zipcode:</h5>
-                    <input type='number' className='' style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
+                    <input type='number' className='' style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }}
                         onChange={e => this.setState({ zipcode: e.target.value })} value={this.state.zipcode} />
                     <h5 className='text-desc'>Date of Event:</h5>
-                    <input type='date' className='' style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
+                    <input type='date' className='' style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }}
                         onChange={e => this.setState({ date: e.target.value })} value={this.state.date} />
                     <h5 className='text-desc'>Start Time:</h5>
-                    <input type='time' className='' style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
+                    <input type='time' className='' style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }}
                         onChange={e => this.setState({ startTime: e.target.value })} value={this.state.startTime} />
                     <h5 className='text-desc'>End Time:</h5>
-                    <input type='time' className='' style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center' }}
+                    <input type='time' className='' style={{ width: '120px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }}
                         onChange={e => this.setState({ endTime: e.target.value })} value={this.state.endTime} />
                 </span>
                 <br />

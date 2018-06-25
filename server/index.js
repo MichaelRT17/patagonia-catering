@@ -130,6 +130,7 @@ app.post('/api/payment', (req, res) => {
 });
 app.put('/api/updatePaid/:event_id', ctrl.updatePaid);
 app.delete('/api/deleteEvent/:event_id', ctrl.deleteEvent);
+app.put('/api/updateEvent/:event_id', ctrl.updateEvent);
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

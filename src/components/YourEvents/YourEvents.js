@@ -49,13 +49,15 @@ export default class YourEvents extends Component {
                     </Link >
                     <div>
                         <h5>{event.paid}</h5>
-                        <Icon style={{ fontSize: '20px', color: '#F6B506' }}>
-                            edit
+                        <Link to={`/eventEditor/${this.props.match.params.user_id}/${event.event_id}`}>
+                            <Icon style={{ fontSize: '20px', color: '#F6B506' }}>
+                                edit
                             </Icon>
+                        </Link>
                         <Icon style={{ fontSize: '20px', color: '#F6B506' }}
                             onClick={() => this.handleDeleteEvent(event.event_id, event.paid)}>
                             delete_forever
-                            </Icon>
+                        </Icon>
                     </div>
                 </div>
 
