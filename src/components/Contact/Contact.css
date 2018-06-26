@@ -1,0 +1,9 @@
+.message-box {
+    font-family: 'Titillium Web', sans-serif;
+    font-style: Light;
+    border: solid 1px #555555;
+}
+
+.text-color {
+    color: #555555
+}
