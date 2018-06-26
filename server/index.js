@@ -151,7 +151,8 @@ app.post('/api/sendMail', (req, res) => {
         } else {
           console.log('Email sent: ' + info.response);
         }
-      });
+      })
+      res.status(200).send()
 })
 
 

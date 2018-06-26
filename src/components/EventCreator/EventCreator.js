@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './EventCreator.css';
 import Icon from '@material-ui/core/Icon';
-import Popup from 'reactjs-popup';
 import { connect } from 'react-redux';
 import { getTotal } from '../../ducks/reducer';
 import { Link } from 'react-router-dom';
+import ReactModal from 'react-modal';
 import axios from 'axios';
 
 class EventCreator extends Component {
@@ -20,8 +20,11 @@ class EventCreator extends Component {
             zipcode: '',
             date: '',
             startTime: '',
-            endTime: ''
+            endTime: '',
+            showModal: false
         }
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     }
 
     componentDidMount() {
@@ -65,6 +68,14 @@ class EventCreator extends Component {
         })
     }
 
+    handleOpenModal() {
+        this.setState({ showModal: true });
+    }
+
+    handleCloseModal() {
+        this.setState({ showModal: false });
+    }
+
     render() {
         let total = 0;
         console.log(this.state)
@@ -91,7 +102,7 @@ class EventCreator extends Component {
                     <input type='' className='' style={{ width: '150px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }}
                         onChange={e => this.setState({ address: e.target.value })} value={this.state.address} />
                     <h5 className='text-desc'>City:</h5>
-                    <input type='' className='' style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555'}}
+                    <input type='' className='' style={{ width: '80px', height: '15px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }}
                         onChange={e => this.setState({ city: e.target.value })} value={this.state.city} />
                     <h5 className='text-desc'>State:</h5>
                     <select style={{ width: '50px', height: '17px', border: 'solid 1px #555555', textAlign: 'center', backgroundColor: 'white', color: '#555555' }}
@@ -163,49 +174,43 @@ class EventCreator extends Component {
                 </span>
                 <br />
                 <br />
-                <div className='button-hold' style={{ margin: '5px 0' }}>
+                <div className='button-hold' style={{ margin: '5px auto' }}>
                     <Link to='/cart' >
                         <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
                             clear
-                    </Icon >
+                        </Icon >
                     </Link >
-                    <Popup
-                        trigger={
-                            <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
-                                done
-                                        </Icon >
-                        }
-                        position="top center"
-                        closeOnDocumentClick
-                    >
-                        {close => (
-                            <span>
-                                <h4>Does this look correct?</h4>
-                                <h6 style={{ margin: '0 0 5px 0' }}>Address: {this.state.address}</h6>
-                                <h6 style={{ margin: '0 0 5px 0' }}>City: {this.state.city}</h6>
-                                <h6 style={{ margin: '0 0 5px 0' }}>State: {this.state.state}</h6>
-                                <h6 style={{ margin: '0 0 5px 0' }}>Zipcode: {this.state.zipcode}</h6>
-                                <h6 style={{ margin: '0 0 5px 0' }}>Date: {this.state.date}</h6>
-                                <h6 style={{ margin: '0 0 5px 0' }}>Start Time: {this.state.startTime}</h6>
-                                <h6 style={{ margin: '0 0 5px 0' }}>End Time: {this.state.endTime}</h6>
-                                <br />
-                                {mappedItems}
-                                <h5>Total: ${total}.00</h5>
-                                <div className='button-holder' style={{ margin: '5px 0' }}>
-                                    <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={close}>
-                                        clear
-                                            </Icon >
-                                    <Link to={`/yourEvents/${this.props.user.user_id}`} >
-                                        <Icon style={{ fontSize: '40px', color: '#F6B506' }}
-                                            onClick={() => this.handleCreateEvent()}>
-                                            done
-                                            </Icon >
-                                    </Link>
-                                </div>
-                            </span>
-                        )}
-                    </Popup>
+                    <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={this.handleOpenModal}>
+                        done
+                    </Icon >
                 </div>
+                <ReactModal
+                    isOpen={this.state.showModal}
+                    className='modal-dialog'
+                >
+                    <h4 className='center text-color'>Does this look correct?</h4>
+                    <h6 style={{ margin: '0 0 5px 0' }} className='center text-color'>Address: {this.state.address}</h6>
+                    <h6 style={{ margin: '0 0 5px 0' }} className='center text-color'>City: {this.state.city}</h6>
+                    <h6 style={{ margin: '0 0 5px 0' }} className='center text-color'>State: {this.state.state}</h6>
+                    <h6 style={{ margin: '0 0 5px 0' }} className='center text-color'>Zipcode: {this.state.zipcode}</h6>
+                    <h6 style={{ margin: '0 0 5px 0' }} className='center text-color'>Date: {this.state.date}</h6>
+                    <h6 style={{ margin: '0 0 5px 0' }} className='center text-color'>Start Time: {this.state.startTime}</h6>
+                    <h6 style={{ margin: '0 0 5px 0' }} className='center text-color'>End Time: {this.state.endTime}</h6>
+                    <br />
+                    {mappedItems}
+                    <h5 className='center text-color'>Total: ${total}.00</h5>
+                    <div className='button-holder' style={{ margin: '5px auto' }}>
+                        <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={this.handleCloseModal}>
+                            clear
+                        </Icon >
+                        <Link to={`/yourEvents/${this.props.user.user_id}`} >
+                            <Icon style={{ fontSize: '40px', color: '#F6B506' }}
+                                onClick={() => this.handleCreateEvent()}>
+                                done
+                            </Icon >
+                        </Link>
+                    </div>
+                </ReactModal >
             </div>
         )
     }

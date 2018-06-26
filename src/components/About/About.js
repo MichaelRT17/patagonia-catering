@@ -22,7 +22,6 @@ export default function About() {
             <p>We do our frying with a Crown Verity PF-2LP Double Tank Portable Outdoor Fryer.</p>
             <img src={grill} alt='' width='300px' />
             <p>We do our grilling with a M-15B Charcoal Grill from Big John.</p>
-            
         </div>
     )
 }

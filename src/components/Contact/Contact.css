@@ -7,3 +7,22 @@
 .text-color {
     color: #555555
 }
+
+.center {
+    text-align: center;
+}
+
+.modal-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+    background-color: white;
+    width: 300px;
+    border: solid 1px #555555;
+}
+
+.exit-holder {
+    display: flex;
+    justify-content: center;
+}
