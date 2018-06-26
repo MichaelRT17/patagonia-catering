@@ -11,9 +11,11 @@ export default class Contact extends Component {
             subject: '',
             message: ''
         }
+        this.sendMail = this.sendMail.bind(this);
     }
 
     sendMail() {
+        console.log(this.state)
         axios.post('/api/sendMail', {
             email: this.state.email,
             name: this.state.name,

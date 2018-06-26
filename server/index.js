@@ -140,9 +140,9 @@ app.post('/api/sendMail', (req, res) => {
     
     var mailOptions = {
         from: process.env.EMAIL,
-        to: 'MichaelRT17@icloud.com',
+        to: process.env.EMAIL,
         subject: req.body.subject,
-        text: req.body.message + '- from ' + req.body.name + ' ' + req.body.email
+        html: `${req.body.message} <br /> <br /> - from ${req.body.name} <br />  ${req.body.email}`
       };
 
       transporter.sendMail(mailOptions, function(error, info){

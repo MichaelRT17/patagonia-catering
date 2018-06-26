@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Icon from '@material-ui/core/Icon';
 import StripeCheckout from 'react-stripe-checkout';
+import { Link } from 'react-router-dom';
 import './Event.css';
 
 export default class Event extends Component {
@@ -84,6 +85,12 @@ export default class Event extends Component {
                     />
                 </div>
                 <h4 className={this.state.paid ? 'show-button' : 'hide-button'}>EVENT PAID IN FULL</h4>
+                <br />
+                <Link to={`/yourEvents/${this.props.match.params.user_id}`}>
+                <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
+                    arrow_back
+                    </Icon >
+                    </Link >
             </div>
         )
     }
