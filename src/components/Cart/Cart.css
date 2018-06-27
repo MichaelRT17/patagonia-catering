@@ -23,6 +23,7 @@
     color: #555555;
     border: solid 1px #F6B506;
     padding: 7px 0;
+    border-radius: 5px;
 }
 
 .text-desc {

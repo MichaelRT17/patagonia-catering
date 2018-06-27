@@ -21,7 +21,7 @@ class EventCreator extends Component {
             date: '',
             startTime: '',
             endTime: '',
-            showModal: false
+            showModal: 'UNPAID'
         }
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -51,7 +51,7 @@ class EventCreator extends Component {
             date: this.state.date,
             startTime: this.state.startTime,
             endTime: this.state.endTime,
-            paid: false
+            paid: 'UNPAID'
         }).then((res) => {
             let event_id = res.data
             axios.post(`/api/addToEventCart/`)

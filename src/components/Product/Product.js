@@ -12,30 +12,45 @@ class Product extends Component {
 
         this.state = {
             quantity: 0,
-            showModal: false
+            showModal1: false,
+            showModal2: false
         }
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.handleOpenModal1 = this.handleOpenModal1.bind(this);
+        this.handleCloseModal1 = this.handleCloseModal1.bind(this);
+        this.handleOpenModal2 = this.handleOpenModal2.bind(this);
+        this.handleCloseModal2 = this.handleCloseModal2.bind(this);
     }
 
     handleAddToCart() {
-        axios.post('/api/addToCart', {
-            product_id: this.props.product.product_id,
-            amount: this.state.quantity,
-            user_id: this.props.user_id
-        }).then(res => {
-            this.setState({
-                quantity: 0
+        if(this.props.user_id) {
+            axios.post('/api/addToCart', {
+                product_id: this.props.product.product_id,
+                amount: this.state.quantity,
+                user_id: this.props.user_id
+            }).then(res => {
+                this.setState({
+                    quantity: 0
+                })
+                this.handleOpenModal1()
             })
-            this.handleOpenModal()
-        })
+        } else {
+            this.handleOpenModal2()
+        }
     }
 
-    handleOpenModal() {
+    handleOpenModal1() {
         this.setState({ showModal: true });
     }
 
-    handleCloseModal() {
+    handleCloseModal1() {
+        this.setState({ showModal: false });
+    }
+
+    handleOpenModal2() {
+        this.setState({ showModal: true });
+    }
+
+    handleCloseModal2() {
         this.setState({ showModal: false });
     }
 
@@ -62,12 +77,12 @@ class Product extends Component {
                     </Icon>
                 </div>
                 <ReactModal
-                    isOpen={this.state.showModal}
+                    isOpen={this.state.showModal1}
                     className='modal-dialog'
                 >
                     <p className='text-color center'>Succesfully added to cart!</p>
                     <div className='icon-holder'>
-                        <Icon onClick={this.handleCloseModal} style={{ fontSize: '40px', color: '#F6B506' }} >
+                        <Icon onClick={this.handleCloseModal1} style={{ fontSize: '40px', color: '#F6B506' }} >
                             close
                         </Icon >
                         <Link to='/cart' >
@@ -75,6 +90,22 @@ class Product extends Component {
                                 shopping_cart
                             </Icon >
                         </Link >
+                    </div>
+                </ReactModal >
+                <ReactModal
+                    isOpen={this.state.showModal2}
+                    className='modal-dialog'
+                >
+                <p className='text-color center'>You must login to add items to your cart.</p>
+                <div className='icon-holder'>
+                        <Icon onClick={this.handleCloseModal2} style={{ fontSize: '40px', color: '#F6B506' }} >
+                            close
+                        </Icon >
+                        <a href={process.env.REACT_APP_LOGIN}>
+                            <Icon style={{ fontSize: '40px', color: '#F6B506' }}>
+                                account_circle
+                            </Icon >
+                        </a>
                     </div>
                 </ReactModal >
             </div>

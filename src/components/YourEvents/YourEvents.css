@@ -5,7 +5,8 @@
     color: #555555;
     border: solid 1px #F6B506;
     margin: 10px auto;
-    width: 350px
+    width: 350px;
+    border-radius: 5px;
 }
 
 .text-color {

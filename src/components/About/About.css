@@ -1,3 +1,9 @@
 .text-color {
     color: #555555
 }
+
+.about-desc-box {
+    width: 300px;
+    text-align: center;
+    margin: 16px auto;
+}

@@ -159,7 +159,7 @@ export default class EventEditor extends Component {
                     <h5 className='total-display'>Total: ${total}.00</h5>
                     <br />
                     <h4 className={this.state.paidDisplay ? 'show-button' : 'hide-button'}>EVENT PAID IN FULL</h4>
-                    <div className='button-holder' style={{ margin: '5px 0' }}>
+                    <div className='button-holder' style={{ margin: '5px auto' }}>
                         <Link to={`/yourEvents/${this.props.match.params.user_id}`}>
                             <Icon style={{ fontSize: '40px', color: '#F6B506' }} >
                                 clear
