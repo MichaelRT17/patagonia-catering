@@ -108,7 +108,9 @@ export default class Home extends Component {
                         <h5 className='text-descrip'>Desserts</h5>
                     </div>
                 </div>
-                {mappedProducts}
+                <div className='list-of-products'>
+                    {mappedProducts}
+                </div>
             </div>
         )
     }

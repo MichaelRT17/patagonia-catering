@@ -57,19 +57,39 @@ class Header extends Component {
                         <div className='icon-box' onClick={() => this.homeIconClick()}>
                             <img height='50px' src={logo} alt='' />
                             <h3>atigonia</h3>
+                            <h3 className='hide-catering'>Catering</h3>
                         </div>
                     </Link >
                     <div className='selector-box'>
-                        <img height='35px' width='35px' style={{borderRadius:'50%', padding:'2.5px'}} src={this.props.user.user_img} alt='User Icon' 
-                            className={this.props.user.user_img ? "account-icon" : "hidden-account-icon"} onClick={() => this.loginIconClick()}/>
-                        <Icon style={{ fontSize: 40, color: '#F6B506' }} className={this.props.user.user_img ? "hidden-account-icon" : ""}
+                        <img height='35px' width='35px' style={{ borderRadius: '50%', padding: '2.5px' }} src={this.props.user.user_img} alt='User Icon'
+                            className={this.props.user.user_img ? "account-icon" : "hidden-account-icon"} onClick={() => this.loginIconClick()} />
+                        <Icon style={{ fontSize: 40, color: '#F6B506' }} className={this.props.user.user_img ? "hidden-account-icon" : "account-icon-placeholder"}
                             onClick={() => this.loginIconClick()}>
                             account_circle
                         </Icon >
-                        <Icon style={{ fontSize: 40, color: '#F6B506' }}
+                        <Icon style={{ fontSize: 40, color: '#F6B506' }} className='plus-icon'
                             onClick={() => this.navIconClick()}>
                             add_circle
                         </Icon >
+                    </div>
+                    <div className='link-buttons'>
+                        <Link to='/about' >
+                            <h3>About</h3>
+                        </Link >
+                        <Link to='/contact' >
+                            <h3>Contact</h3>
+                        </Link >
+                        <Link to='/cart' >
+                            <h3>Cart</h3>
+                        </Link >
+                        <Link to={`/yourEvents/${this.props.user.user_id}`} >
+                            <h3>Your Events</h3>
+                        </Link >
+                        <a href={this.props.user.user_id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN} >
+                            <h3>{this.props.user.user_id ? 'Logout' : 'Login'}</h3>
+                        </a>
+                        <img height='35px' width='35px' style={{ borderRadius: '50%', padding: '2.5px' }} src={this.props.user.user_img} alt='User Icon' 
+                            className={this.props.user.user_img ? "account-icon-desktop" : "hidden-account-icon"}/>
                     </div>
                 </header>
                 <nav className={this.state.navmenu ? "navbar" : "hiddennavbar"}>
@@ -90,8 +110,8 @@ class Header extends Component {
                 <nav className={this.state.loginmenu ? "login-bar" : "hidden-login-bar"}>
                     <h3>{this.props.user.user_name ? `Welcome, ${this.props.user.user_name}!` : 'Welcome, visitor!'}</h3>
                     <Link to={`/yourEvents/${this.props.user.user_id}`} >
-                    <h3 className={this.props.user.user_id ? 'dropmenu' : 'dropmenuhidden'}
-                        onClick={() => this.homeIconClick()}>Your Events</h3>
+                        <h3 className={this.props.user.user_id ? 'dropmenu' : 'dropmenuhidden'}
+                            onClick={() => this.homeIconClick()}>Your Events</h3>
                     </Link >
                     <a href={this.props.user.user_id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN} >
                         <h4>{this.props.user.user_id ? 'Logout' : 'Login'}</h4>

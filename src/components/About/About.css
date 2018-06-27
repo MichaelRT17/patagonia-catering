@@ -7,3 +7,50 @@
     text-align: center;
     margin: 16px auto;
 }
+
+.about-title {
+    margin: 30px 0;
+}
+
+.left-box {
+    display: inline;
+}
+
+.right-box {
+    display: inline;
+}
+
+.about-holder {
+    display: block;
+}
+
+.grill-holder {
+    display: inline;
+}
+
+@media(min-width: 700px) {
+    .left-box {
+        float: left;
+    }
+    
+    .right-box {
+        float: right;
+    }
+    
+    .about-holder {
+        width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    .grill-holder {
+        width: 1000px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0 auto;
+    }
+    .top-bottom-lines {
+        border-top: 1px solid #F6B506;
+        border-bottom: 1px solid #F6B506;
+    }
+}

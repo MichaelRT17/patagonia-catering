@@ -8,6 +8,7 @@
     align-items: center;
     padding: 0 30px;
     z-index: 6;
+    overflow: hidden;
 }
 
 .icon-box {
@@ -46,6 +47,7 @@
     transition: .5s;
     position: absolute;
     z-index: 5;
+    overflow: hidden;
   }
 
   .dropmenuhidden {
@@ -70,6 +72,7 @@
     position: absolute;
     z-index: 5;
     color: white;
+    overflow: hidden;
   }
 
   .hidden-login-bar {
@@ -86,6 +89,59 @@
     display: none;
   }
 
-  .account_icon {
+  .account-icon {
     border-radius: 50%;
+  }
+
+  .account-icon-placeholder {
+    display: inline;
+  }
+
+  .plus-icon {
+    display: inline;
+  }
+
+  .hide-catering {
+    display: none;
+  }
+
+  .link-buttons {
+    display: none;
+  }
+
+  .account-icon-desktop {
+    display: inline;
+  }
+
+  @media(min-width: 600px) {
+    .icon-box {
+      margin: 0 0 0 40px;
+      width: 190px;
+    }
+    .hide-catering {
+      display: inline;
+    }
+    .account-icon-placeholder {
+      display: none;
+    }
+    .plus-icon {
+      display: none;
+    }
+    .link-buttons {
+      display: flex;
+      width: 400px;
+      justify-content: space-around;
+      color: #F6B506;
+      margin: 0 40px 0 0;
+      align-items: center;
+    }
+    .login-bar {
+      display: none;
+    }
+    .navbar {
+      display: none;
+    }
+    .account-icon {
+      display: none;
+    }
   }
