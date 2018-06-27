@@ -55,10 +55,10 @@ export default class Contact extends Component {
             <div className='text-color'>
                 <h1>Contact us here:</h1>
                 <h4>Your email: </h4>
-                <input value={this.state.email} onChange={e => this.setState({ email: e.target.value })}
+                <input value={this.state.email} onChange={e => this.setState({ email: e.target.value })} spellCheck="false"
                     style={{ width: '198px', height: '18px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }} />
                 <h4>Your name: </h4>
-                <input value={this.state.name} onChange={e => this.setState({ name: e.target.value })}
+                <input value={this.state.name} onChange={e => this.setState({ name: e.target.value })} spellCheck="false"
                     style={{ width: '198px', height: '18px', border: 'solid 1px #555555', textAlign: 'center', color: '#555555' }} />
                 <h4>Subject: </h4>
                 <input value={this.state.subject} onChange={e => this.setState({ subject: e.target.value })}

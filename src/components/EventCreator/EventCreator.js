@@ -3,7 +3,7 @@ import './EventCreator.css';
 import Icon from '@material-ui/core/Icon';
 import { connect } from 'react-redux';
 import { getTotal } from '../../ducks/reducer';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import axios from 'axios';
 
@@ -21,10 +21,12 @@ class EventCreator extends Component {
             date: '',
             startTime: '',
             endTime: '',
-            showModal: 'UNPAID'
+            showModal: false,
+            redirect: false
         }
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.setRedirect = this.setRedirect.bind(this);
     }
 
     componentDidMount() {
@@ -62,6 +64,7 @@ class EventCreator extends Component {
                             event_id: event_id
                         }).then(() => {
                             axios.delete('/api/removeFromCart')
+                            this.setRedirect()
                         })
                     })
                 })
@@ -74,6 +77,18 @@ class EventCreator extends Component {
 
     handleCloseModal() {
         this.setState({ showModal: false });
+    }
+
+    setRedirect() {
+        this.setState({
+            redirect: true
+        })
+    }
+
+    renderRedirect() {
+        if (this.state.redirect) {
+            return <Redirect to={`/yourEvents/${this.props.user.user_id}`} />
+        }
     }
 
     render() {
@@ -93,6 +108,7 @@ class EventCreator extends Component {
         })
         return (
             <div className='App'>
+            {this.renderRedirect()}
                 <span >
                     <h2 className='title' >Your Event Info:</h2>
                     <h5 className='text-desc'>Event Name:</h5>
@@ -203,12 +219,12 @@ class EventCreator extends Component {
                         <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={this.handleCloseModal}>
                             clear
                         </Icon >
-                        <Link to={`/yourEvents/${this.props.user.user_id}`} >
+                        {/* <Link to={`/yourEvents/${this.props.user.user_id}`} > */}
                             <Icon style={{ fontSize: '40px', color: '#F6B506' }}
                                 onClick={() => this.handleCreateEvent()}>
                                 done
                             </Icon >
-                        </Link>
+                        {/* </Link> */}
                     </div>
                 </ReactModal >
             </div>

@@ -22,36 +22,37 @@ class Product extends Component {
     }
 
     handleAddToCart() {
-        if(this.props.user_id) {
+        if(this.props.user_id && this.state.quantity !== 0) {
             axios.post('/api/addToCart', {
                 product_id: this.props.product.product_id,
                 amount: this.state.quantity,
                 user_id: this.props.user_id
             }).then(res => {
+                console.log('working')
                 this.setState({
                     quantity: 0
                 })
                 this.handleOpenModal1()
             })
-        } else {
+        } else if (!this.props.user_id){
             this.handleOpenModal2()
         }
     }
 
     handleOpenModal1() {
-        this.setState({ showModal: true });
+        this.setState({ showModal1: true });
     }
 
     handleCloseModal1() {
-        this.setState({ showModal: false });
+        this.setState({ showModal1: false });
     }
 
     handleOpenModal2() {
-        this.setState({ showModal: true });
+        this.setState({ showModal2: true });
     }
 
     handleCloseModal2() {
-        this.setState({ showModal: false });
+        this.setState({ showModal2: false });
     }
 
     render() {
@@ -94,7 +95,7 @@ class Product extends Component {
                 </ReactModal >
                 <ReactModal
                     isOpen={this.state.showModal2}
-                    className='modal-dialog'
+                    className='modal-dialog-box'
                 >
                 <p className='text-color center'>You must login to add items to your cart.</p>
                 <div className='icon-holder'>

@@ -33,6 +33,11 @@ export default class Event extends Component {
 
     onPurchaseConfirmation() {
         axios.put('/api/updatePaid/' + this.props.match.params.event_id)
+            .then(res => {
+                this.setState({
+                    paid: true
+                })
+            })
     }
 
     onToken = (token) => {
@@ -49,7 +54,7 @@ export default class Event extends Component {
         let mappedItems = this.state.items.map((item, i) => {
             total += item.amount * item.product_price;
             return (
-                <div key={i} className='button-hold outline'>
+                <div key={i} className='button-holds outline'>
                     <img width='40px' src={item.product_img} alt='' />
                     <h5 className='text-desc-product'>{item.product_name}</h5>
                     <div className='product-box'>

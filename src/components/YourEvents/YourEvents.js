@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Icon from '@material-ui/core/Icon';
+import ReactModal from 'react-modal';
 import './YourEvents.css';
 
 export default class YourEvents extends Component {
@@ -9,8 +10,11 @@ export default class YourEvents extends Component {
         super(props);
 
         this.state = {
-            yourEvents: []
+            yourEvents: [],
+            showModal: false
         }
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     }
 
     componentDidMount() {
@@ -24,7 +28,7 @@ export default class YourEvents extends Component {
 
     handleDeleteEvent(event_id, paid) {
         if (paid === 'PAID') {
-            alert('You have already paid for this event. Please contact us to cancel your event.')
+            this.handleOpenModal()
         }
         else {
             axios.delete(`/api/deleteEvent/${event_id}`)
@@ -34,31 +38,50 @@ export default class YourEvents extends Component {
         }
     }
 
+    handleOpenModal() {
+        this.setState({ showModal: true });
+    }
+
+    handleCloseModal() {
+        this.setState({ showModal: false });
+    }
+
     render() {
         let mappedEvents = this.state.yourEvents.map((event, i) => {
             return (
                 <div className='event-display-box' key={i}>
                     <Link to={`/event/${this.props.match.params.user_id}/${event.event_id}`} >
-                        <h3 className='text-color'>{event.event_name}</h3>
+                        <h3 className='text-color' style={{ width: '91px' }}>{event.event_name}</h3>
                     </Link >
                     <Link to={`/event/${this.props.match.params.user_id}/${event.event_id}`} >
-                        <div className='text-color'>
+                        <div className='text-color' style={{ width: '105px' }}>
                             <h5>Date: {event.date}</h5>
                             <h5>Time: {event.start_time}-{event.end_time}</h5>
                         </div>
                     </Link >
-                    <div>
+                    <div style={{ width: '70px' }}>
                         <h5>{event.paid}</h5>
                         <Link to={`/eventEditor/${this.props.match.params.user_id}/${event.event_id}`}>
-                            <Icon style={{ fontSize: '20px', color: '#F6B506' }}>
+                            <Icon style={{ fontSize: '25px', color: '#F6B506', padding: '0 5px' }}>
                                 edit
                             </Icon>
                         </Link>
-                        <Icon style={{ fontSize: '20px', color: '#F6B506' }}
+                        <Icon style={{ fontSize: '25px', color: '#F6B506', padding: '0 5px' }}
                             onClick={() => this.handleDeleteEvent(event.event_id, event.paid)}>
                             delete_forever
                         </Icon>
                     </div>
+                    <ReactModal
+                        isOpen={this.state.showModal}
+                        className='modal-dialog'
+                    >
+                        <p className='text-color center'>You have already paid for this event. Please contact us in order to cancel.</p>
+                        <div className='exit-holder'>
+                            <Icon onClick={this.handleCloseModal} style={{ fontSize: '40px', color: '#F6B506' }} >
+                                close
+                            </Icon >
+                        </div>
+                    </ReactModal >
                 </div>
 
             )
