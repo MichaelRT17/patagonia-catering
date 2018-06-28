@@ -40,7 +40,7 @@
     .about-holder {
         width: 1200px;
         margin: 0 auto;
-        overflow: hidden;
+        /* overflow: hidden; */
     }
     .grill-holder {
         width: 1000px;

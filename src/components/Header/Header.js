@@ -83,13 +83,14 @@ class Header extends Component {
                             <h3>Cart</h3>
                         </Link >
                         <Link to={`/yourEvents/${this.props.user.user_id}`} >
-                            <h3>Your Events</h3>
+                            <h3 className={this.props.user.user_id ? 'dropmenu' : 'dropmenuhidden'}>
+                                Your Events</h3>
                         </Link >
                         <a href={this.props.user.user_id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN} >
                             <h3>{this.props.user.user_id ? 'Logout' : 'Login'}</h3>
                         </a>
-                        <img height='35px' width='35px' style={{ borderRadius: '50%', padding: '2.5px' }} src={this.props.user.user_img} alt='User Icon' 
-                            className={this.props.user.user_img ? "account-icon-desktop" : "hidden-account-icon"}/>
+                        <img height='35px' width='35px' style={{ borderRadius: '50%', padding: '2.5px' }} src={this.props.user.user_img} alt='User Icon'
+                            className={this.props.user.user_img ? "account-icon-desktop" : "hidden-account-icon"} />
                     </div>
                 </header>
                 <nav className={this.state.navmenu ? "navbar" : "hiddennavbar"}>

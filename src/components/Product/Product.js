@@ -22,7 +22,7 @@ class Product extends Component {
     }
 
     handleAddToCart() {
-        if(this.props.user_id && this.state.quantity !== 0) {
+        if (this.props.user_id && this.state.quantity !== 0) {
             axios.post('/api/addToCart', {
                 product_id: this.props.product.product_id,
                 amount: this.state.quantity,
@@ -34,7 +34,7 @@ class Product extends Component {
                 })
                 this.handleOpenModal1()
             })
-        } else if (!this.props.user_id){
+        } else if (!this.props.user_id) {
             this.handleOpenModal2()
         }
     }
@@ -60,7 +60,9 @@ class Product extends Component {
         return (
             <div className='info-border'>
                 <h3 className='info-text'>{this.props.product.product_name}</h3>
-                <img width='300px' src={this.props.product.product_img} alt='food' />
+                <div className='product-image-holder'>
+                    <img width='300px' src={this.props.product.product_img} alt='food'/>
+                </div>
                 <div className='info-box'>
                     <h5 className='info-text'>Price: ${this.props.product.product_price}</h5>
                     <p> </p>
@@ -97,8 +99,8 @@ class Product extends Component {
                     isOpen={this.state.showModal2}
                     className='modal-dialog-box'
                 >
-                <p className='text-color center'>You must login to add items to your cart.</p>
-                <div className='icon-holder'>
+                    <p className='text-color center'>You must login to add items to your cart.</p>
+                    <div className='icon-holder'>
                         <Icon onClick={this.handleCloseModal2} style={{ fontSize: '40px', color: '#F6B506' }} >
                             close
                         </Icon >
