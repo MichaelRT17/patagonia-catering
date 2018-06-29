@@ -20,10 +20,16 @@ export default class YourEvents extends Component {
     componentDidMount() {
         axios.get(`/api/getUserEvents/${this.props.match.params.user_id}`)
             .then(res => {
-                this.setState({
-                    yourEvents: res.data
-                })
-            })
+                console.log(res.data)
+                 if(res.data === 'redirect') {
+                    this.props.history.push('/')
+                } else {
+                    this.setState({
+                        yourEvents: res.data
+                    })
+                }
+            }
+            )
     }
 
     handleDeleteEvent(event_id, paid) {

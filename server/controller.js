@@ -102,23 +102,49 @@ module.exports = {
     getUserEvents: (req, res) => {
         const db = req.app.get('db');
 
-        db.get_user_events([req.params.user_id])
-            .then((events) => res.status(200).send(events))
-            .catch(() => res.status(500).send());
+        if (req.user) {
+            if (req.user.user_id === +req.params.user_id) {
+                db.get_user_events([+req.params.user_id])
+                    .then((events) => res.status(200).send(events))
+                    .catch((err) => {
+                        console.log(err)
+                        res.status(500).send();
+                    })
+
+            }
+            else {
+                res.status(200).send('redirect')
+            }
+        }
+        else {
+            res.status(200).send('redirect')
+        }
+
     },
 
     getEvent: (req, res) => {
         const db = req.app.get('db');
 
-        db.get_event([req.params.event_id])
-            .then((event) => res.status(200).send(event))
-            .catch(() => res.status(500).send());
+        if (req.user) {
+            if (req.user.user_id === +req.params.user_id) {
+                db.get_event([+req.params.event_id])
+                    .then((event) => res.status(200).send(event))
+                    .catch(() => res.status(500).send());
+            }
+            else {
+                res.status(200).send('redirect')
+            }
+        }
+        else {
+            res.status(200).send('redirect')
+        }
+
     },
 
     updatePaid: (req, res) => {
         const db = req.app.get('db');
 
-        db.update_paid([req.params.event_id])
+        db.update_paid([+req.params.event_id])
             .then(() => res.status(200).send())
             .catch(() => res.status(500).send());
     },

@@ -26,22 +26,26 @@ export default class EventEditor extends Component {
     componentDidMount() {
         axios.get(`/api/getEvent/${this.props.match.params.event_id}`)
             .then(res => {
-                this.setState({
-                    eventName: res.data[0].event_name,
-                    address: res.data[0].address,
-                    city: res.data[0].city,
-                    state: res.data[0].state,
-                    zipcode: res.data[0].zipcode,
-                    date: res.data[0].date,
-                    startTime: res.data[0].start_time,
-                    endTime: res.data[0].end_time,
-                    paid: res.data[0].paid,
-                    items: res.data
-                })
-                if (this.state.paid === 'PAID') {
+                if (res.data === 'redirect') {
+                    this.props.history.push('/')
+                } else {
                     this.setState({
-                        paidDisplay: true
+                        eventName: res.data[0].event_name,
+                        address: res.data[0].address,
+                        city: res.data[0].city,
+                        state: res.data[0].state,
+                        zipcode: res.data[0].zipcode,
+                        date: res.data[0].date,
+                        startTime: res.data[0].start_time,
+                        endTime: res.data[0].end_time,
+                        paid: res.data[0].paid,
+                        items: res.data
                     })
+                    if (this.state.paid === 'PAID') {
+                        this.setState({
+                            paidDisplay: true
+                        })
+                    }
                 }
             })
     }

@@ -56,7 +56,7 @@ class Header extends Component {
                     <Link to='/' >
                         <div className='icon-box' onClick={() => this.homeIconClick()}>
                             <img height='50px' src={logo} alt='' />
-                            <h3>atigonia</h3>
+                            <h3>atagonia</h3>
                             <h3 className='hide-catering'>Catering</h3>
                         </div>
                     </Link >

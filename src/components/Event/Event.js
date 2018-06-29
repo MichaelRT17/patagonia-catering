@@ -19,14 +19,18 @@ export default class Event extends Component {
     componentDidMount() {
         axios.get(`/api/getEvent/${this.props.match.params.event_id}`)
             .then(res => {
-                this.setState({
-                    event: res.data[0],
-                    items: res.data
-                })
-                if(this.state.event.paid === 'PAID') {
+                if(res.data === 'redirect') {
+                    this.props.history.push('/')
+                } else {
                     this.setState({
-                        paid: true
+                        event: res.data[0],
+                        items: res.data
                     })
+                    if(this.state.event.paid === 'PAID') {
+                        this.setState({
+                            paid: true
+                        })
+                    }
                 }
             })
     }
