@@ -7,7 +7,8 @@ const express = require('express')
     , Auth0Strategy = require('passport-auth0')
     , nodemailer = require('nodemailer')
     , stripe = require('stripe')(process.env.REACT_APP_STRIPE_KEY)
-    , ctrl = require('./controller');
+    , ctrl = require('./controller')
+    , axios = require('axios');
 
 const {
     SERVER_PORT,
@@ -21,7 +22,7 @@ const {
 
 const app = express();
 
-app.use( express.static( `${__dirname}/../build` ) );
+app.use(express.static(`${__dirname}/../build`));
 
 app.use(bodyParser.json());
 app.use(session({
@@ -67,7 +68,8 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 }))
 app.get('/auth/logout', (req, res) => {
     req.logOut();
-    res.redirect(`${process.env.FRONTEND_URL}#/`)
+    res.redirect(`https://michaelrt17.auth0.com/v2/logout?returnTo=${encodeURIComponent(process.env.FRONTEND_URL + '#/')}`)
+    // res.redirect(`${process.env.FRONTEND_URL}#/`)
 })
 app.get('/api/getProducts', ctrl.getProducts);
 app.get('/auth/user', (req, res) => {
@@ -92,21 +94,21 @@ app.post('/api/payment', (req, res) => {
     const amountArray = req.body.amount.toString().split('');
     const pennies = [];
     for (var i = 0; i < amountArray.length; i++) {
-      if(amountArray[i] === ".") {
-        if (typeof amountArray[i + 1] === "string") {
-          pennies.push(amountArray[i + 1]);
+        if (amountArray[i] === ".") {
+            if (typeof amountArray[i + 1] === "string") {
+                pennies.push(amountArray[i + 1]);
+            } else {
+                pennies.push("0");
+            }
+            if (typeof amountArray[i + 2] === "string") {
+                pennies.push(amountArray[i + 2]);
+            } else {
+                pennies.push("0");
+            }
+            break;
         } else {
-          pennies.push("0");
+            pennies.push(amountArray[i])
         }
-        if (typeof amountArray[i + 2] === "string") {
-          pennies.push(amountArray[i + 2]);
-        } else {
-          pennies.push("0");
-        }
-          break;
-      } else {
-          pennies.push(amountArray[i])
-      }
     }
     const convertedAmt = parseInt(pennies.join(''));
 
@@ -139,22 +141,22 @@ app.post('/api/sendMail', (req, res) => {
             pass: process.env.PASSWORD
         }
     });
-    
+
     var mailOptions = {
         from: process.env.EMAIL,
         to: process.env.EMAIL,
         subject: req.body.subject,
         html: `${req.body.message} <br /> <br /> - from ${req.body.name} <br />  ${req.body.email}`
-      };
+    };
 
-      transporter.sendMail(mailOptions, function(error, info){
+    transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          console.log(error);
+            console.log(error);
         } else {
-          console.log('Email sent: ' + info.response);
+            console.log('Email sent: ' + info.response);
         }
-      })
-      res.status(200).send()
+    })
+    res.status(200).send()
 })
 
 
