@@ -8,7 +8,8 @@ const express = require('express')
     , nodemailer = require('nodemailer')
     , stripe = require('stripe')(process.env.REACT_APP_STRIPE_KEY)
     , ctrl = require('./controller')
-    , axios = require('axios');
+    , axios = require('axios')
+    , twilio = require('twilio');
 
 const {
     SERVER_PORT,
@@ -69,7 +70,6 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 app.get('/auth/logout', (req, res) => {
     req.logOut();
     res.redirect(`https://michaelrt17.auth0.com/v2/logout?returnTo=${process.env.FRONTEND_URL + '#/'}`)
-    // res.redirect(`${process.env.FRONTEND_URL}#/`)
 })
 app.get('/api/getProducts', ctrl.getProducts);
 app.get('/auth/user', (req, res) => {
@@ -123,6 +123,7 @@ app.post('/api/payment', (req, res) => {
             return res.status(500).send();
         }
         else {
+
             return res.status(200).send();
         }
     });
@@ -159,9 +160,19 @@ app.post('/api/sendMail', (req, res) => {
     res.status(200).send()
 })
 
+//twilio
+const accountSid = process.env.TWILIO_SID;
+const authToken = process.env.TWILIO_TOKEN;
+const client = new twilio(accountSid, authToken)
 
-
-
+app.post('/sendText', (req, res) => {
+    client.messages.create({
+        body: 'A customer has placed an order.',
+        to: process.env.PHONE_NUMBER,
+        from: '+13854484210'
+    }).then(message => console.log(message.sid))
+        .done();
+})
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

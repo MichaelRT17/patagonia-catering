@@ -50,6 +50,7 @@ class Event extends Component {
         axios.post('/api/payment', { token, amount: 100 })
             .then(res => {
                 this.onPurchaseConfirmation();
+                axios.post('/sendText')
             })
     }
 
