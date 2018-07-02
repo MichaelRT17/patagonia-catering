@@ -68,7 +68,7 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 }))
 app.get('/auth/logout', (req, res) => {
     req.logOut();
-    res.redirect(`https://michaelrt17.auth0.com/v2/logout?returnTo=${encodeURIComponent(process.env.FRONTEND_URL + '#/')}`)
+    res.redirect(`https://michaelrt17.auth0.com/v2/logout?returnTo=${process.env.FRONTEND_URL + '#/'}`)
     // res.redirect(`${process.env.FRONTEND_URL}#/`)
 })
 app.get('/api/getProducts', ctrl.getProducts);
