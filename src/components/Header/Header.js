@@ -67,27 +67,27 @@ class Header extends Component {
                             onClick={() => this.loginIconClick()}>
                             account_circle
                         </Icon >
-                        <Icon style={{ fontSize: 40, color: '#F6B506' }} className='plus-icon'
+                        <Icon style={{ fontSize: 40, color: '#F6B506' }} className={this.state.navmenu ? 'plus-icon-rotate' : 'plus-icon'}
                             onClick={() => this.navIconClick()}>
                             add_circle
                         </Icon >
                     </div>
                     <div className='link-buttons'>
                         <Link to='/about' >
-                            <h3>About</h3>
+                            <h3 className='link-color-change'>About</h3>
                         </Link >
                         <Link to='/contact' >
-                            <h3>Contact</h3>
+                            <h3 className='link-color-change'>Contact</h3>
                         </Link >
                         <Link to='/cart' >
-                            <h3>Cart</h3>
+                            <h3 className='link-color-change'>Cart</h3>
                         </Link >
                         <Link to={`/yourEvents/${this.props.user.user_id}`} >
-                            <h3 className={this.props.user.user_id ? 'dropmenu' : 'dropmenuhidden'}>
+                            <h3 className={this.props.user.user_id ? 'dropmenu link-color-change' : 'dropmenuhidden'}>
                                 Your Events</h3>
                         </Link >
                         <a href={this.props.user.user_id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN} >
-                            <h3>{this.props.user.user_id ? 'Logout' : 'Login'}</h3>
+                            <h3 className='link-color-change'>{this.props.user.user_id ? 'Logout' : 'Login'}</h3>
                         </a>
                         <img height='35px' width='35px' style={{ borderRadius: '50%', padding: '2.5px' }} src={this.props.user.user_img} alt='User Icon'
                             className={this.props.user.user_img ? "account-icon-desktop" : "hidden-account-icon"} />
