@@ -89,7 +89,7 @@ app.post('/api/createEvent', ctrl.createEvent);
 app.post('/api/addToEventCart', ctrl.addToEventCart);
 app.put('/api/linkToEvent/:id', ctrl.linkToEvent);
 app.get('/api/getUserEvents/:user_id', ctrl.getUserEvents);
-app.get('/api/getEvent/:event_id', ctrl.getEvent);
+app.get('/api/getEvent/:user_id/:event_id', ctrl.getEvent);
 app.post('/api/payment', (req, res) => {
     const amountArray = req.body.amount.toString().split('');
     const pennies = [];

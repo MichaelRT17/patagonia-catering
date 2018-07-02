@@ -3,9 +3,10 @@ import axios from 'axios';
 import Icon from '@material-ui/core/Icon';
 import StripeCheckout from 'react-stripe-checkout';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './Event.css';
 
-export default class Event extends Component {
+class Event extends Component {
     constructor(props) {
         super(props);
 
@@ -17,7 +18,7 @@ export default class Event extends Component {
     }
 
     componentDidMount() {
-        axios.get(`/api/getEvent/${this.props.match.params.event_id}`)
+        axios.get(`/api/getEvent/${this.props.user_id}/${this.props.match.params.event_id}`)
             .then(res => {
                 if(res.data === 'redirect') {
                     this.props.history.push('/')
@@ -104,3 +105,11 @@ export default class Event extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        user_id: state.user.user_id
+    };
+}
+
+export default connect(mapStateToProps)(Event)

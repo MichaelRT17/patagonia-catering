@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Icon from '@material-ui/core/Icon';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './EventEditor.css';
 
-export default class EventEditor extends Component {
+class EventEditor extends Component {
     constructor(props) {
         super(props);
 
@@ -24,7 +25,7 @@ export default class EventEditor extends Component {
     }
 
     componentDidMount() {
-        axios.get(`/api/getEvent/${this.props.match.params.event_id}`)
+        axios.get(`/api/getEvent/${this.props.user_id}/${this.props.match.params.event_id}`)
             .then(res => {
                 if (res.data === 'redirect') {
                     this.props.history.push('/')
@@ -180,3 +181,11 @@ export default class EventEditor extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        user_id: state.user.user_id
+    };
+}
+
+export default connect(mapStateToProps)(EventEditor)
