@@ -21,11 +21,14 @@ class EventCreator extends Component {
             date: '',
             startTime: '',
             endTime: '',
-            showModal: false,
+            showModal1: false,
+            showModal2: false,
             redirect: false
         }
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.handleOpenModal1 = this.handleOpenModal1.bind(this);
+        this.handleCloseModal1 = this.handleCloseModal1.bind(this);
+        this.handleOpenModal2 = this.handleOpenModal2.bind(this);
+        this.handleCloseModal2 = this.handleCloseModal2.bind(this);
         this.setRedirect = this.setRedirect.bind(this);
     }
 
@@ -71,12 +74,24 @@ class EventCreator extends Component {
         })
     }
 
-    handleOpenModal() {
-        this.setState({ showModal: true });
+    handleOpenModal1() {
+        if (!this.state.eventName || !this.state.address || !this.state.city || !this.state.state || !this.state.zipcode || !this.state.date || !this.state.startTime || !this.state.endTime) {
+            this.handleOpenModal2()
+        } else {
+            this.setState({ showModal1: true });
+        }
     }
 
-    handleCloseModal() {
-        this.setState({ showModal: false });
+    handleCloseModal1() {
+        this.setState({ showModal1: false });
+    }
+
+    handleOpenModal2() {
+        this.setState({ showModal2: true });
+    }
+
+    handleCloseModal2() {
+        this.setState({ showModal2: false });
     }
 
     setRedirect() {
@@ -108,7 +123,7 @@ class EventCreator extends Component {
         })
         return (
             <div className='App'>
-            {this.renderRedirect()}
+                {this.renderRedirect()}
                 <span >
                     <h2 className='title' >Your Event Info:</h2>
                     <h5 className='text-desc'>Event Name:</h5>
@@ -196,12 +211,12 @@ class EventCreator extends Component {
                             clear
                         </Icon >
                     </Link >
-                    <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={this.handleOpenModal}>
+                    <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={this.handleOpenModal1}>
                         done
                     </Icon >
                 </div>
                 <ReactModal
-                    isOpen={this.state.showModal}
+                    isOpen={this.state.showModal1}
                     className='modal-dialog'
                 >
                     <h4 className='center text-color'>Does this look correct?</h4>
@@ -216,15 +231,26 @@ class EventCreator extends Component {
                     {mappedItems}
                     <h5 className='center text-color'>Total: ${total}.00</h5>
                     <div className='button-holder' style={{ margin: '5px auto' }}>
-                        <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={this.handleCloseModal}>
+                        <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={this.handleCloseModal1}>
                             clear
                         </Icon >
                         {/* <Link to={`/yourEvents/${this.props.user.user_id}`} > */}
-                            <Icon style={{ fontSize: '40px', color: '#F6B506' }}
-                                onClick={() => this.handleCreateEvent()}>
-                                done
+                        <Icon style={{ fontSize: '40px', color: '#F6B506' }}
+                            onClick={() => this.handleCreateEvent()}>
+                            done
                             </Icon >
                         {/* </Link> */}
+                    </div>
+                </ReactModal >
+                <ReactModal
+                    isOpen={this.state.showModal2}
+                    className='modal-dialog'
+                >
+                    <h4 className='center text-color'>All information is required.</h4>
+                    <div className='button-holder' style={{ margin: '5px auto' }}>
+                        <Icon style={{ fontSize: '40px', color: '#F6B506' }} onClick={this.handleCloseModal2}>
+                            clear
+                        </Icon >
                     </div>
                 </ReactModal >
             </div>
