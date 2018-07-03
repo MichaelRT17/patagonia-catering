@@ -18,14 +18,19 @@ class Event extends Component {
     }
 
     componentDidMount() {
+        let items = []
         axios.get(`/api/getEvent/${this.props.user_id}/${this.props.match.params.event_id}`)
             .then(res => {
                 if(res.data === 'redirect') {
                     this.props.history.push('/')
                 } else {
+                    res.data.forEach(item => {
+                        let x = items.findIndex(e => e.product_id === item.product_id)
+                        x === -1 ? items.push(item) : items[x].amount += item.amount
+                    })
                     this.setState({
                         event: res.data[0],
-                        items: res.data
+                        items: items
                     })
                     if(this.state.event.paid === 'PAID') {
                         this.setState({
